@@ -514,6 +514,71 @@ h1.name .khan{background-position:100% 0}
   .piece:nth-child(5) .front .art{order:2;height:100%}
   .piece:nth-child(5) .front .art .planet-art{width:auto;height:90%}}
 
+
+/* ---------- outfit turntable ---------- */
+@property --glow{syntax:"<color>";inherits:true;initial-value:#CDBDFF}
+.outfits{padding-bottom:clamp(4rem,8vw,6.5rem)}
+.tt{margin-top:clamp(2.5rem,5vw,4rem)}
+.tt-stage{--glow:#CDBDFF;position:relative;height:clamp(440px,56vw,620px);border:2px solid transparent;
+  border-radius:50% 50% 28px 28px / 30% 30% 28px 28px;overflow:hidden;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none;
+  background:
+    radial-gradient(70% 55% at 12% 18%,rgba(150,240,215,.55),transparent 60%),
+    radial-gradient(60% 50% at 90% 22%,rgba(190,170,255,.6),transparent 60%),
+    radial-gradient(80% 60% at 50% 105%,rgba(255,190,220,.6),transparent 60%),
+    linear-gradient(#FBF8FF,#F3EEFF) padding-box,var(--holo) border-box;
+  transition:--glow .7s ease;contain:layout paint}
+.tt-stage.dragging{cursor:grabbing}
+.tt-stage:focus-visible{outline:3px solid var(--bow-deep);outline-offset:4px}
+.tt-glow{position:absolute;left:50%;bottom:4%;width:min(70%,560px);aspect-ratio:1;transform:translateX(-50%);border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,color-mix(in srgb,var(--glow) 70%,transparent),color-mix(in srgb,var(--glow) 22%,transparent) 60%,transparent)}
+.tt-podium{position:absolute;left:50%;transform:translateX(-50%);border-radius:50%;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 35%,#FFFFFF,#F1EBFF 55%,#DCD0FF) padding-box,var(--holo) border-box;border:2px solid transparent;
+  box-shadow:0 18px 30px -18px rgba(60,40,140,.45),inset 0 -10px 24px rgba(143,107,255,.18)}
+.tt-podium::after{content:"";position:absolute;inset:14%;border-radius:50%;border:1.5px dashed rgba(143,107,255,.35)}
+.tt-fig{position:absolute;left:50%;bottom:9%;height:84%;aspect-ratio:720/988;transform-origin:50% 100%;will-change:transform,opacity}
+.tt-fig img{width:100%;height:100%;object-fit:contain;pointer-events:none;-webkit-user-drag:none}
+.tt-fig::after{content:"";position:absolute;left:24%;right:24%;bottom:-1.5%;height:5%;border-radius:50%;z-index:-1;
+  background:radial-gradient(closest-side,rgba(40,25,80,.38),transparent)}
+.tt-spark{position:absolute;width:26px;color:#FF9CC3;pointer-events:none}
+.tt-spark.a{left:17%;top:22%}.tt-spark.b{right:15%;top:30%;width:18px;color:#8F6BFF}
+.tt-btn{position:absolute;top:50%;z-index:200;width:52px;height:52px;margin-top:-26px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:#0D2350;
+  border:2px solid transparent;background:linear-gradient(#fff,#fff) padding-box,var(--holo) border-box;box-shadow:0 6px 16px -6px rgba(60,40,140,.35);transition:transform .25s cubic-bezier(.3,1.6,.5,1),background .2s}
+.tt-btn svg{width:20px}
+.tt-btn:hover{transform:scale(1.08);background:linear-gradient(var(--bow),var(--bow)) padding-box,var(--holo) border-box}
+.tt-btn.prev{left:clamp(.6rem,2.5vw,2rem)}.tt-btn.next{right:clamp(.6rem,2.5vw,2rem)}
+
+/* clothes rail of hangers */
+.tt-rail{position:relative;display:flex;justify-content:center;gap:clamp(.6rem,2.4vw,1.6rem);list-style:none;margin:2rem auto 0;padding:0 0 .2rem;flex-wrap:nowrap;width:fit-content;max-width:100%}
+.tt-rail::before{content:"";position:absolute;left:-1.4rem;right:-1.4rem;top:6px;height:3px;border-radius:3px;background:var(--holo);opacity:.85}
+.hanger{position:relative;display:flex;flex-direction:column;align-items:center;border:0;background:none;padding:0;cursor:pointer;color:var(--ink);font:inherit;
+  transform-origin:50% 6px;transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.hanger svg{width:26px;height:22px;flex:none}
+.hanger .th{width:clamp(48px,9vw,68px);aspect-ratio:1;border-radius:50%;overflow:hidden;margin-top:-2px;border:2px solid transparent;
+  background:linear-gradient(#F6F2FF,#F6F2FF) padding-box,var(--holo) border-box;transition:box-shadow .3s}
+.hanger .th img{width:100%;height:100%;object-fit:cover;object-position:50% 0;transform:scale(1.9);transform-origin:50% 8%}
+.hanger:hover{transform:rotate(-6deg)}
+.hanger[aria-current="true"] .th{box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--bow)}
+.hanger[aria-current="true"]{transform:translateY(4px)}
+
+/* look details */
+.tt-info{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(1rem,4vw,4rem);margin-top:2.4rem;align-items:start}
+.tt-count{margin:0;color:var(--muted);font-size:.95rem}
+.tt-name{font-family:var(--serif);font-style:italic;font-size:clamp(2.4rem,5vw,4rem);line-height:1;margin:.3rem 0 0;
+  background:var(--chroma-text);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;padding-bottom:.08em}
+.tt-line{margin:0 0 1.1rem;font-size:1.15rem;max-width:46ch}
+.tt-tags{display:flex;flex-wrap:wrap;gap:.5rem;list-style:none;padding:0;margin:0}
+.tt-tags li{border:1.5px solid rgba(143,107,255,.45);padding:.3rem .85rem;border-radius:999px;font-size:.93rem;background:var(--paper)}
+.tt-tags li:first-child{background:var(--skin);border-color:transparent;color:#fff}
+@media (max-width:760px){
+  .tt-stage{height:clamp(420px,118vw,540px);border-radius:50% 50% 22px 22px / 22% 22% 22px 22px}
+  .tt-btn{width:44px;height:44px;margin-top:-22px;top:auto;bottom:3%}
+  .tt-fig{height:78%;bottom:13%}
+  .tt-rail::before{left:-.6rem;right:-.6rem}
+  .tt-info{grid-template-columns:1fr;gap:1rem}
+  .tt-rail{gap:.35rem}
+  .tt-spark{display:none}
+}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
   .ticker .track{animation:none}
@@ -588,6 +653,7 @@ h1.name .khan{background-position:100% 0}
     <ul>
       <li><a href="#portfolio">Drawings</a></li>
       <li><a href="#embroidery">Embroidery</a></li>
+      <li><a href="#outfits">Outfits</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#style">Style</a></li>
       <li><a href="#experience">Experience</a></li>
@@ -691,6 +757,43 @@ h1.name .khan{background-position:100% 0}
     </div>
   </section>
 
+
+  <section class="outfits" id="outfits">
+    <div class="wrap">
+      <div class="portfolio-head">
+        <h2>Pick my outfit</h2>
+        <p class="lede">Six looks I’ve styled and worn, from weekend denim to Navratri nights. Drag the stage or tap a hanger to change the look.</p>
+      </div>
+      <div class="tt" role="region" aria-roledescription="carousel" aria-label="Outfits I’ve worn">
+        <div class="tt-stage" id="ttStage" tabindex="0" aria-label="Outfit stage, use the left and right arrow keys to turn">
+          <div class="tt-glow" aria-hidden="true"></div>
+          <svg class="tt-spark a" viewBox="0 0 40 40" aria-hidden="true"><use href="#spark"/></svg>
+          <svg class="tt-spark b" viewBox="0 0 40 40" aria-hidden="true"><use href="#spark"/></svg>
+          <div class="tt-podium" id="ttPodium" aria-hidden="true"></div>
+          <div class="tt-fig" data-i="0" data-name="Weekend denim" data-glow="#9CC2FF" data-line="A cropped denim jacket over a black crop top, high-rise wide-leg jeans and a silver chain swinging from the belt loop." data-tags="[&quot;Streetwear&quot;, &quot;Cropped denim jacket&quot;, &quot;Wide-leg jeans&quot;, &quot;Chain detail&quot;]"><img src="look-1.webp?v=20261028c" alt="Look in a cropped denim jacket, black crop top and wide-leg jeans with a chain belt" width="720" height="988" loading="lazy" decoding="async" draggable="false"></div>
+          <div class="tt-fig" data-i="1" data-name="Burgundy layers" data-glow="#F28AAE" data-line="A quilted burgundy jacket with a fur-trimmed collar, layered over a black turtleneck, a grey mini skirt and over-the-knee boots." data-tags="[&quot;Winter layers&quot;, &quot;Quilted jacket&quot;, &quot;Mini skirt&quot;, &quot;Over-the-knee boots&quot;]" aria-hidden="true"><img src="look-2.webp?v=20261028c" alt="Look in a quilted burgundy jacket with fur collar, black turtleneck, grey mini skirt and black over-the-knee boots" width="720" height="988" loading="lazy" decoding="async" draggable="false"></div>
+          <div class="tt-fig" data-i="2" data-name="Ivory lehenga" data-glow="#FFD7A1" data-line="An ivory net lehenga with fine gold embroidery, a matching cropped blouse and a sheer dupatta draped over the arms." data-tags="[&quot;Festive&quot;, &quot;Net lehenga&quot;, &quot;Embroidered blouse&quot;, &quot;Sheer dupatta&quot;]" aria-hidden="true"><img src="look-3.webp?v=20261028c" alt="Look in an ivory embroidered net lehenga with a cropped blouse and sheer dupatta" width="720" height="988" loading="lazy" decoding="async" draggable="false"></div>
+          <div class="tt-fig" data-i="3" data-name="Butterfly wings" data-glow="#C3B0FF" data-line="A black satin gown worn with oversized butterfly wings, their iridescent panels catching every colour in the light." data-tags="[&quot;Statement&quot;, &quot;Butterfly wings&quot;, &quot;Satin gown&quot;, &quot;Iridescent panels&quot;]" aria-hidden="true"><img src="look-4.webp?v=20261028c" alt="Back view of a black satin gown with large black and iridescent butterfly wings" width="720" height="988" loading="lazy" decoding="async" draggable="false"></div>
+          <div class="tt-fig" data-i="4" data-name="Navratri night" data-glow="#FF8E7E" data-line="A flowing black gown under a red printed dupatta with a beaded border, sunglasses pushed up and dandiya sticks in hand." data-tags="[&quot;Festive&quot;, &quot;Printed dupatta&quot;, &quot;Black flared gown&quot;, &quot;Dandiya sticks&quot;]" aria-hidden="true"><img src="look-5.webp?v=20261028c" alt="Look in a black flared gown with a red printed dupatta, holding dandiya sticks" width="720" height="988" loading="lazy" decoding="async" draggable="false"></div>
+          <div class="tt-fig" data-i="5" data-name="Midnight maxi" data-glow="#FFB3D1" data-line="A black maxi dress with full sleeves and a buttoned bodice, cinched with a belt and finished with layered chain necklaces." data-tags="[&quot;Evening&quot;, &quot;Black maxi dress&quot;, &quot;Statement belt&quot;, &quot;Layered chains&quot;]" aria-hidden="true"><img src="look-6.webp?v=20261028c" alt="Look in a long-sleeved black maxi dress with a belt and layered chain necklaces" width="720" height="988" loading="lazy" decoding="async" draggable="false"></div>
+          <button class="tt-btn prev" type="button" id="ttPrev" aria-label="Previous outfit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button class="tt-btn next" type="button" id="ttNext" aria-label="Next outfit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+        <ul class="tt-rail" aria-label="Choose an outfit">
+          <li><button class="hanger" type="button" data-go="0" aria-label="Show Weekend denim" aria-current="true"><svg viewBox="0 0 26 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 9V6.5a2.6 2.6 0 1 0-2.6-2.6"/><path d="M13 9L2 20h22Z" opacity=".55"/></svg><span class="th"><img src="look-1.webp?v=20261028c" alt="" loading="lazy" decoding="async"></span></button></li>
+          <li><button class="hanger" type="button" data-go="1" aria-label="Show Burgundy layers" aria-current="false"><svg viewBox="0 0 26 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 9V6.5a2.6 2.6 0 1 0-2.6-2.6"/><path d="M13 9L2 20h22Z" opacity=".55"/></svg><span class="th"><img src="look-2.webp?v=20261028c" alt="" loading="lazy" decoding="async"></span></button></li>
+          <li><button class="hanger" type="button" data-go="2" aria-label="Show Ivory lehenga" aria-current="false"><svg viewBox="0 0 26 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 9V6.5a2.6 2.6 0 1 0-2.6-2.6"/><path d="M13 9L2 20h22Z" opacity=".55"/></svg><span class="th"><img src="look-3.webp?v=20261028c" alt="" loading="lazy" decoding="async"></span></button></li>
+          <li><button class="hanger" type="button" data-go="3" aria-label="Show Butterfly wings" aria-current="false"><svg viewBox="0 0 26 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 9V6.5a2.6 2.6 0 1 0-2.6-2.6"/><path d="M13 9L2 20h22Z" opacity=".55"/></svg><span class="th"><img src="look-4.webp?v=20261028c" alt="" loading="lazy" decoding="async"></span></button></li>
+          <li><button class="hanger" type="button" data-go="4" aria-label="Show Navratri night" aria-current="false"><svg viewBox="0 0 26 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 9V6.5a2.6 2.6 0 1 0-2.6-2.6"/><path d="M13 9L2 20h22Z" opacity=".55"/></svg><span class="th"><img src="look-5.webp?v=20261028c" alt="" loading="lazy" decoding="async"></span></button></li>
+          <li><button class="hanger" type="button" data-go="5" aria-label="Show Midnight maxi" aria-current="false"><svg viewBox="0 0 26 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 9V6.5a2.6 2.6 0 1 0-2.6-2.6"/><path d="M13 9L2 20h22Z" opacity=".55"/></svg><span class="th"><img src="look-6.webp?v=20261028c" alt="" loading="lazy" decoding="async"></span></button></li>
+        </ul>
+        <div class="tt-info" id="ttInfo" aria-live="polite">
+          <div><p class="tt-count" id="ttCount">Look 1 of 6</p><p class="tt-name" id="ttName">Weekend denim</p></div>
+          <div><p class="tt-line" id="ttLine">A cropped denim jacket over a black crop top, high-rise wide-leg jeans and a silver chain swinging from the belt loop.</p><ul class="tt-tags" id="ttTags"><li>Streetwear</li><li>Cropped denim jacket</li><li>Wide-leg jeans</li><li>Chain detail</li></ul></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="about" id="about">
     <div class="wrap">
@@ -1070,6 +1173,97 @@ h1.name .khan{background-position:100% 0}
   let tx=null;
   lb.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
   lb.addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)show(cur+(dx<0?1:-1));tx=null});
+
+
+  /* outfit turntable: six looks on a swivelling stage */
+  (function(){
+    const stage=document.getElementById('ttStage'); if(!stage) return;
+    const figs=[...stage.querySelectorAll('.tt-fig')], N=figs.length, podium=document.getElementById('ttPodium');
+    const hangers=[...document.querySelectorAll('.hanger')], info=document.getElementById('ttInfo');
+    const nameEl=document.getElementById('ttName'), lineEl=document.getElementById('ttLine'), tagsEl=document.getElementById('ttTags'), countEl=document.getElementById('ttCount');
+    let rot=0, RX=300, RY=30, active=0, anim=0, narrow=false;
+    const wrap=v=>((v%N)+N)%N;
+    function measure(){
+      const w=stage.clientWidth, h=stage.clientHeight; if(!w) return;
+      narrow=w<560; const fh=narrow?.78:.84, fw=h*fh*720/988;
+      RX=Math.min(w*(narrow?.37:.34), fw*1.15, 420); RY=Math.max(12,h*(narrow?.035:.045));
+      const base=h*(narrow?.13:.09), pad=RY*.9;
+      podium.style.width=(2*RX+fw*.75)+'px'; podium.style.height=(2*RY+2*pad+RY)+'px';
+      podium.style.bottom=(base-pad-RY*.6)+'px';
+      draw();
+    }
+    function draw(){
+      for(let i=0;i<N;i++){
+        let d=wrap(i-rot); if(d>N/2) d-=N;
+        const th=d*2*Math.PI/N, k=(Math.cos(th)+1)/2;
+        const s=narrow?.34+.66*Math.pow(k,2.4):.42+.58*k*k, x=Math.sin(th)*RX, y=-(1-k)*2*RY;
+        const f=figs[i];
+        f.style.transform=`translate3d(calc(-50% + ${x.toFixed(1)}px),${y.toFixed(1)}px,0) scale(${s.toFixed(3)})`;
+        f.style.opacity=(k>=.7?1:.42+.58*Math.pow(k/.7,2)).toFixed(3);
+        f.style.zIndex=Math.round(k*100);
+      }
+    }
+    function setActive(i){
+      i=wrap(i); if(i===active&&nameEl.textContent===figs[i].dataset.name) return; active=i;
+      const f=figs[i];
+      figs.forEach((g,j)=>g.toggleAttribute('aria-hidden',j!==i));
+      hangers.forEach((h,j)=>h.setAttribute('aria-current',j===i));
+      stage.style.setProperty('--glow',f.dataset.glow);
+      nameEl.textContent=f.dataset.name; lineEl.textContent=f.dataset.line;
+      tagsEl.innerHTML=JSON.parse(f.dataset.tags).map(t=>`<li>${t}</li>`).join('');
+      countEl.textContent=`Look ${i+1} of ${N}`;
+      if(!reduce) info.animate([{opacity:0,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:380,easing:'ease-out'});
+    }
+    function go(to,dur){
+      cancelAnimationFrame(anim);
+      const from=rot, t0=performance.now(); dur=reduce?0:(dur||620);
+      setActive(Math.round(to));
+      if(!dur){rot=to;draw();return}
+      (function step(t){
+        const p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3);
+        rot=from+(to-from)*e; draw();
+        if(p<1) anim=requestAnimationFrame(step); else rot=to;
+      })(t0);
+    }
+    const nearest=i=>{let d=wrap(i-rot); if(d>N/2) d-=N; return rot+d;};
+    document.getElementById('ttPrev').addEventListener('click',()=>go(Math.round(rot)-1));
+    document.getElementById('ttNext').addEventListener('click',()=>go(Math.round(rot)+1));
+    hangers.forEach(h=>h.addEventListener('click',()=>go(Math.round(nearest(+h.dataset.go)),760)));
+    stage.addEventListener('keydown',e=>{
+      if(e.key==='ArrowLeft'){e.preventDefault();go(Math.round(rot)-1)}
+      if(e.key==='ArrowRight'){e.preventDefault();go(Math.round(rot)+1)}
+    });
+
+    /* drag / swipe to swivel */
+    let down=false,sx=0,sy=0,r0=0,moved=false,lastX=0,lastT=0,vel=0;
+    stage.addEventListener('pointerdown',e=>{
+      if(e.target.closest('.tt-btn')||e.button>0) return;
+      down=true;moved=false;sx=lastX=e.clientX;sy=e.clientY;lastT=performance.now();r0=rot;vel=0;cancelAnimationFrame(anim);
+    });
+    stage.addEventListener('pointermove',e=>{
+      if(!down) return;
+      const dx=e.clientX-sx;
+      if(!moved){ if(Math.abs(dx)<6) return; if(Math.abs(e.clientY-sy)>Math.abs(dx)){down=false;return} moved=true; stage.setPointerCapture(e.pointerId); stage.classList.add('dragging'); }
+      const now=performance.now(); vel=(e.clientX-lastX)/Math.max(1,now-lastT); lastX=e.clientX; lastT=now;
+      rot=r0-dx/(RX*1.6); draw();
+    });
+    const release=e=>{
+      if(!down) return; down=false; stage.classList.remove('dragging');
+      if(!moved){ const f=e.target.closest('.tt-fig'); if(f) go(Math.round(nearest(+f.dataset.i))); return; }
+      go(Math.round(rot+Math.max(-.6,Math.min(.6,-vel*.3))),420);
+    };
+    stage.addEventListener('pointerup',release);
+    stage.addEventListener('pointercancel',()=>{if(down){down=false;stage.classList.remove('dragging');go(Math.round(rot),300)}});
+
+    if('ResizeObserver' in window) new ResizeObserver(measure).observe(stage); else addEventListener('resize',measure);
+    measure();
+
+    /* one small swivel the first time the stage comes into view */
+    if(!reduce&&'IntersectionObserver' in window){
+      const io=new IntersectionObserver(es=>{ if(es[0].isIntersecting){ io.disconnect(); if(rot===0){rot=-1;draw();go(0,1100);} } },{threshold:.45});
+      io.observe(stage);
+    }
+  })();
 
   /* pause the ticker when it is off screen */
   const tk=document.querySelector('.ticker');
